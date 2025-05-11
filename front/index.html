@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>My Shop</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/apple-icon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='img/shop_117803.ico') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/templatemo.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.min.css') }}">
+</head>
+
+<body>
+    <!-- Start Top Nav -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+        <div class="container text-light">
+            <div class="w-100 d-flex justify-content-between">
+                <div>
+                    <i class="fa fa-envelope mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">auth.myshop.world@gmail.com</a>
+                    <i class="fa fa-phone mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:098-38-48-88">098-38-48-88</a>
+                </div>
+                <div>
+                    <a class="text-light" href="https://www.facebook.com/profile.php?id=61573924709146" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://www.instagram.com/_my_shop_official" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://x.com/MyShop480678" target="_blank"><i class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Close Top Nav -->
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center" href="{{ url_for('home') }}">
+                My Shop
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('shop') }}">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('preferences') }}">My Preferences</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('get_cart') }}">Cart</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <a class="btn btn-outline-danger ml-3" href="{{ url_for('logout') }}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Close Header -->
+
+
+    <!-- Modal -->
+    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="w-100 pt-1 mb-5 text-right">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="get" class="modal-content modal-body border-0 p-0">
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
+                    <button type="submit" class="input-group-text bg-success text-light">
+                        <i class="fa fa-fw fa-search text-white"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Start Banner Hero -->
+<div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <!-- First Slide -->
+        <div class="carousel-item active">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="{{ url_for('static', filename='/img/banner_img_01.jpg')}}" alt="Shopping Experience">
+                    </div>
+                    <div class="col-lg-6 mb-0 d-flex align-items-center">
+                        <div class="text-align-left align-self-center">
+                            <h1 class="h1 text-success"><b>Welcome to My Shop</b></h1>
+                            <h3 class="h2">Shopping Made Simple & Enjoyable</h3>
+                            <p>
+                                Discover exclusive deals and top brands in one place. Enjoy seamless shopping with 
+                                fast delivery, secure payments, and the latest trends at unbeatable prices.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Second Slide -->
+        <div class="carousel-item">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="{{ url_for('static', filename='/img/banner_img_02.jpg')}}" alt="Exclusive Offers">
+                    </div>
+                    <div class="col-lg-6 mb-0 d-flex align-items-center">
+                        <div class="text-align-left">
+                            <h1 class="h1">Unbeatable Discounts</h1>
+                            <h3 class="h2">Save More on Every Purchase</h3>
+                            <p>
+                                Get up to 50% off on selected products. Special seasonal sales, limited-time offers, 
+                                and exclusive discounts – shop now before they’re gone!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Third Slide -->
+        <div class="carousel-item">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="{{ url_for('static', filename='/img/banner_img_03.jpg')}}" alt="Premium Brands">
+                    </div>
+                    <div class="col-lg-6 mb-0 d-flex align-items-center">
+                        <div class="text-align-left">
+                            <h1 class="h1">Your Favorite Brands</h1>
+                            <h3 class="h2">All Top Brands in One Place</h3>
+                            <p>
+                                We collaborate with leading brands like Apple, Nike, Samsung, and more. 
+                                Find authentic products with guaranteed quality, only at My Shop.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <!-- Navigation Controls -->
+    <button class="carousel-control-prev text-decoration-none w-auto ps-3" type="button" data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide="prev">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="carousel-control-next text-decoration-none w-auto pe-3" type="button" data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide="next">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+
+</div>
+<!-- End Banner Hero -->
+
+
+
+    <!-- Start Categories of The Month -->
+<section class="container py-5">
+    <div class="row text-center pt-3">
+        <div class="col-lg-6 m-auto">
+            <h1 class="h1">Categories of The Month</h1>
+            <p>
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-4 p-5 mt-3">
+            <a href="{{ url_for('shop') }}"><img src="{{ url_for('static', filename='/img/category_img_01.jpg')}}" class="rounded-circle img-fluid border"></a>
+            <h5 class="text-center mt-3 mb-3">Watches</h5>
+            <p class="text-center"><a href="{{ url_for('shop') }}" class="btn btn-success">Go Shop</a></p>
+        </div>
+        <div class="col-12 col-md-4 p-5 mt-3">
+            <a href="{{ url_for('shop') }}"><img src="{{ url_for('static', filename='/img/category_img_02.jpg')}}" class="rounded-circle img-fluid border"></a>
+            <h2 class="h5 text-center mt-3 mb-3">Shoes</h2>
+            <p class="text-center"><a href="{{ url_for('shop') }}" class="btn btn-success">Go Shop</a></p>
+        </div>
+        <div class="col-12 col-md-4 p-5 mt-3">
+            <a href="{{ url_for('shop') }}"><img src="{{ url_for('static', filename='/img/category_img_03.jpg')}}" class="rounded-circle img-fluid border"></a>
+            <h2 class="h5 text-center mt-3 mb-3">Accessories</h2>
+            <p class="text-center"><a href="{{ url_for('shop') }}" class="btn btn-success">Go Shop</a></p>
+        </div>
+    </div>
+</section>
+<!-- End Categories of The Month -->
+
+
+<!-- Start Featured Product Section -->
+<section class="bg-light">
+    <div class="container py-5">
+        <div class="row text-center py-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1">Recommended Products</h1>
+                <p>
+                    Based on your preferences, we've selected some products you might like.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            {% for product in products %}
+                {% if product['title'] != "Unknown Product" and product['price'] not in [None, "None", 0] and product['image_url'] %}
+                    <div class="col-12 col-md-4 mb-4">
+                        <div class="card product-card shadow rounded-lg h-100">
+                            <a href="{{ product['link'] }}" class="product-link" 
+                                target="_blank"
+                                data-product-name="{{ product['title'] }}"
+                                data-product-brand="{{ product['brand'] }}">
+                                    <img src="{{ product['image_url'] }}" class="card-img-top p-3" alt="{{ product['title'] }}">
+                                </a>
+                            <div class="card-body text-center">
+                                <a href="{{ product['link'] }}" class="product-link" 
+                                target="_blank"
+                                data-product-name="{{ product['title'] }}"
+                                data-product-brand="{{ product['brand'] }}">
+                                    {{ product['title'] }}
+                                </a>
+                                <p class="text-muted small">{{ product['description'] }}</p>
+                                <p class="text-muted small">Brand: {{ product['brand'] }}</p>
+                                <h5 class="text-primary font-weight-bold">${{ product['price'] }}</h5>
+                                <button class="btn add-to-cart {{ 'btn-secondary disabled' if product.in_cart else 'btn-primary' }} rounded-pill mt-2"
+                                    data-title="{{ product.title }}"
+                                    data-price="{{ product.price }}"
+                                    data-image-url="{{ product.image_url }}"
+                                    data-link="{{ product.link }}"
+                                    data-brand="{{ product.brand }}"
+                                    data-description="{{ product.description if product.description else 'No description available' }}"
+                                    {% if product.in_cart %}disabled{% endif %}>
+                                    {{ "Added" if product.in_cart else "Add to Cart" }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>            
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- End Featured Product Section -->
+
+
+    <!-- Start Footer -->
+<footer class="bg-dark" id="tempaltemo_footer">
+    <div class="container">
+        <div class="row">
+
+            <!-- About Us -->
+            <div class="col-md-4 pt-5">
+                <h2 class="h2 text-success border-bottom pb-3 border-light logo">My Shop</h2>
+                <p class="text-light">
+                    My Shop is your ultimate platform for discovering and comparing products from top online stores. 
+                    We integrate listings from leading brands and marketplaces, offering seamless product searches, filtering, 
+                    and personalized recommendations.
+                </p>
+            </div>
+
+            <!-- Product Categories -->
+            <div class="col-md-4 pt-5">
+                <h2 class="h2 text-light border-bottom pb-3 border-light">Categories</h2>
+                <ul class="list-unstyled text-light footer-link-list">
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Electronics</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Clothing</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Shoes</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Accessories</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Smart Gadgets</a></li>
+                </ul>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-4 pt-5">
+                <h2 class="h2 text-light border-bottom pb-3 border-light">Quick Links</h2>
+                <ul class="list-unstyled text-light footer-link-list">
+                    <li><a class="text-decoration-none" href="{{ url_for('home') }}">Home</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Shop</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('contact') }}">Contact</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('preferences') }}">Preferences</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="row text-light mb-4">
+            <div class="col-12 mb-3">
+                <div class="w-100 my-3 border-top border-light"></div>
+            </div>
+
+            <!-- Social Media -->
+            <div class="col-auto me-auto">
+                <ul class="list-inline text-left footer-icons">
+                    <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="https://www.facebook.com/profile.php?id=61573924709146"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                    </li>
+                    <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/_my_shop_official"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
+                    </li>
+                    <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="https://x.com/MyShop480678"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Subscription -->
+            <form id="subscribe-form" class="d-flex">
+                <input type="email" id="subscribe-email" class="form-control bg-dark border-light text-white" placeholder="Enter your email" required>
+                <button type="submit" class="btn btn-success">Subscribe</button>
+            </form>
+            <p id="subscribe-message" class="text-white mt-2"></p>            
+            
+        </div>
+    </div>
+</footer>
+<!-- End Footer -->
+
+    <!-- End Footer -->
+    <!-- Кнопка "Вверх" -->
+<button id="scrollTopBtn" onclick="scrollToTop()" class="scroll-top">
+    ↑
+</button>
+
+<!-- Стили для кнопки -->
+<style>
+    .scroll-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 24px;
+        cursor: pointer;
+        display: none; /* Скрыта по умолчанию */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .scroll-top:hover {
+        background-color: #218838;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        background: none !important; 
+        border: none !important; 
+        outline: none !important; 
+        box-shadow: none !important; 
+}
+
+</style>
+
+<script>
+    window.addEventListener("scroll", function () {
+        let scrollTopBtn = document.getElementById("scrollTopBtn");
+        if (window.scrollY > 300) {
+            scrollTopBtn.style.display = "block";
+        } else {
+            scrollTopBtn.style.display = "none";
+        }
+    });
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+</script>
+
+<script>
+    document.getElementById("subscribe-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        let email = document.getElementById("subscribe-email").value;
+        let message = document.getElementById("subscribe-message");
+
+        fetch("{{ url_for('subscribe') }}", {
+            method: "POST",
+            body: JSON.stringify({ email: email }),
+            headers: { "Content-Type": "application/json" }
+        })
+        .then(response => response.json())
+        .then(data => {
+            message.innerHTML = data.message;
+            message.style.color = data.status === "success" ? "green" : "red";
+            if (data.status === "success") {
+                document.getElementById("subscribe-email").value = ""; 
+            }
+        })
+        .catch(error => {
+            message.innerHTML = "Error occurred. Please try again.";
+            message.style.color = "red";
+        });
+    });
+</script>
+
+    <!-- Start Script -->
+    <script src="{{ url_for('static', filename='/js/jquery-1.11.0.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='/js/jquery-migrate-1.2.1.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='/js/templatemo.js')}}"></script>
+    <script src="{{ url_for('static', filename='/js/custom.js')}}"></script>
+    <!-- End Script -->
+</body>
+
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>My Shop - Contact</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='/img/apple-icon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='/img/shop_117803.ico') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/templatemo.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/custom.css') }}">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/fontawesome.min.css') }}">
+
+    <!-- Load map styles -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+
+    <style>
+        .contact-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .contact-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Start Top Nav -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+        <div class="container text-light">
+            <div class="w-100 d-flex justify-content-between">
+                <div>
+                    <i class="fa fa-envelope mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">auth.myshop.world@gmail.com</a>
+                    <i class="fa fa-phone mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:098-38-48-88">098-38-48-88</a>
+                </div>
+                <div>
+                    <a class="text-light" href="https://www.facebook.com/profile.php?id=61573924709146" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://www.instagram.com/_my_shop_official" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://x.com/MyShop480678" target="_blank"><i class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Close Top Nav -->
+
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center" href="{{ url_for('home') }}">
+                My Shop
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('shop') }}">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('preferences') }}">My Preferences</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('get_cart') }}">Cart</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <a class="btn btn-outline-danger ml-3" href="{{ url_for('logout') }}">Logout</a>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    <!-- Close Header -->
+
+    <div class="container contact-container">
+        <h2>Contact Us</h2>
+        <p class="text-center">Have a question? Send us a message.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="mb-3">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('contact') }}" method="POST">
+            <label for="name">Your Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+
+            <label for="email">Your Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+
+            <label for="subject">Subject</label>
+            <input type="text" class="form-control" id="subject" name="subject" required>
+
+            <label for="message">Message</label>
+            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+
+            <button type="submit" class="btn btn-success btn-submit">Send Message</button>
+        </form>
+    </div>
+
+
+ <!-- Start Footer -->
+ <footer class="bg-dark" id="tempaltemo_footer">
+    <div class="container">
+        <div class="row">
+
+            <!-- About Us -->
+            <div class="col-md-4 pt-5">
+                <h2 class="h2 text-success border-bottom pb-3 border-light logo">My Shop</h2>
+                <p class="text-light">
+                    My Shop is your ultimate platform for discovering and comparing products from top online stores. 
+                    We integrate listings from leading brands and marketplaces, offering seamless product searches, filtering, 
+                    and personalized recommendations.
+                </p>
+            </div>
+
+            <!-- Product Categories -->
+            <div class="col-md-4 pt-5">
+                <h2 class="h2 text-light border-bottom pb-3 border-light">Categories</h2>
+                <ul class="list-unstyled text-light footer-link-list">
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Electronics</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Clothing</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Shoes</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Accessories</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Smart Gadgets</a></li>
+                </ul>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-4 pt-5">
+                <h2 class="h2 text-light border-bottom pb-3 border-light">Quick Links</h2>
+                <ul class="list-unstyled text-light footer-link-list">
+                    <li><a class="text-decoration-none" href="{{ url_for('home') }}">Home</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Shop</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('contact') }}">Contact</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('preferences') }}">Preferences</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="row text-light mb-4">
+            <div class="col-12 mb-3">
+                <div class="w-100 my-3 border-top border-light"></div>
+            </div>
+
+            <!-- Social Media -->
+            <div class="col-auto me-auto">
+                <ul class="list-inline text-left footer-icons">
+                    <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="https://www.facebook.com/profile.php?id=61573924709146"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                    </li>
+                    <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/_my_shop_official"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
+                    </li>
+                    <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="https://x.com/MyShop480678"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Subscription -->
+            <form id="subscribe-form" class="d-flex">
+                <input type="email" id="subscribe-email" class="form-control bg-dark border-light text-white" placeholder="Enter your email" required>
+                <button type="submit" class="btn btn-success">Subscribe</button>
+            </form>
+            <p id="subscribe-message" class="text-white mt-2"></p>   
+        </div>
+    </div>
+</footer>
+<!-- End Footer -->
+
+<script>
+    document.getElementById("subscribe-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        let email = document.getElementById("subscribe-email").value;
+        let message = document.getElementById("subscribe-message");
+
+        fetch("{{ url_for('subscribe') }}", {
+            method: "POST",
+            body: JSON.stringify({ email: email }),
+            headers: { "Content-Type": "application/json" }
+        })
+        .then(response => response.json())
+        .then(data => {
+            message.innerHTML = data.message;
+            message.style.color = data.status === "success" ? "green" : "red";
+            if (data.status === "success") {
+                document.getElementById("subscribe-email").value = ""; // Очищаем поле ввода
+            }
+        })
+        .catch(error => {
+            message.innerHTML = "Error occurred. Please try again.";
+            message.style.color = "red";
+        });
+    });
+</script>
+
+    <!-- Start Script -->
+    <script src="{{ url_for('static', filename='/js/jquery-1.11.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='/js/jquery-migrate-1.2.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='/js/templatemo.js') }}"></script>
+    <script src="{{ url_for('static', filename='/js/custom.js') }}"></script>
+    <!-- End Script -->
+</body>
+
+</html>

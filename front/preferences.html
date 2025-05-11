@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<title>My Shop - Preferences</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/apple-icon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='img/shop_117803.ico') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/templatemo.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.min.css') }}">
+</head>
+
+<body>
+    <!-- Start Top Nav -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+        <div class="container text-light">
+            <div class="w-100 d-flex justify-content-between">
+                <div>
+                    <i class="fa fa-envelope mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">auth.myshop.world@gmail.com</a>
+                    <i class="fa fa-phone mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:098-38-48-88">098-38-48-88</a>
+                </div>
+                <div>
+                    <a class="text-light" href="https://www.facebook.com/profile.php?id=61573924709146" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://www.instagram.com/_my_shop_official" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://x.com/MyShop480678" target="_blank"><i class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Close Top Nav -->
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center" href="{{ url_for('home') }}">
+                My Shop
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('shop') }}">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('preferences') }}">My Preferences</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('get_cart') }}">Cart</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <a class="btn btn-outline-danger ml-3" href="{{ url_for('logout') }}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<body>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title text-center text-success">Welcome! Tell Us About Your Preferences</h3>
+                        <form action="{{ url_for('preferences') }}" method="POST">
+                             <!-- Question 1 -->
+                             <div class="mb-3">
+                                <label class="form-label">1. What products are you interested in?</label>
+                                {% set saved_categories = preferences.preferred_categories.split(',') if preferences and preferences.preferred_categories else [] %}
+                                {% for category in ['clothing', 'shoes', 'electronics', 'cosmetics', 'home_goods', 'kids', 'food'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="category_{{ category }}" name="preferred_categories[]" value="{{ category }}" {% if category in saved_categories %}checked{% endif %}>
+                                    <label class="form-check-label" for="category_{{ category }}">{{ category.replace('_', ' ').capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Question 2 -->
+                            <div class="mb-3">
+                                <label class="form-label">2. What style of clothing do you prefer?</label>
+                                {% set saved_styles = preferences.preferred_styles.split(',') if preferences and preferences.preferred_styles else [] %}
+                                {% for style in ['classic', 'sport', 'casual', 'romantic', 'street'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="style_{{ style }}" name="preferred_styles[]" value="{{ style }}" {% if style in saved_styles %}checked{% endif %}>
+                                    <label class="form-check-label" for="style_{{ style }}">{{ style.capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Question 3 -->
+                            <div class="mb-3">
+                                <label class="form-label">3. Which brands and sites do you like?</label>
+                                {% set saved_brands = preferences.favorite_brands.split(',') if preferences and preferences.favorite_brands else [] %}
+                                {% for brand in ['nike', 'puma', 'apple', 'samsung', 'sony', 'wildberries', 'amazon'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="brand_{{ brand }}" name="favorite_brands[]" value="{{ brand }}" {% if brand in saved_brands %}checked{% endif %}>
+                                    <label class="form-check-label" for="brand_{{ brand }}">{{ brand.replace('_', ' ').capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Question 4 -->
+                            <div class="mb-3">
+                                <label class="form-label">4. What materials do you prefer?</label>
+                                {% set saved_material = preferences.preferred_material if preferences and preferences.preferred_material else '' %}
+                                {% for material in ['natural', 'synthetic', 'combined'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="material_{{ material }}" name="preferred_material" value="{{ material }}" {% if material == saved_material %}checked{% endif %}>
+                                    <label class="form-check-label" for="material_{{ material }}">{{ material.capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+
+                            <!-- Question 5 -->
+                            <div class="mb-3">
+                                <label class="form-label">5. What devices do you buy most often?</label>
+                                {% set saved_devices = preferences.preferred_devices.split(',') if preferences and preferences.preferred_devices else [] %}
+                                {% for device in ['smartphones', 'computers', 'consoles', 'gadgets', 'appliances'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="devices_{{ device }}" name="preferred_devices[]" value="{{ device }}" {% if device in saved_devices %}checked{% endif %}>
+                                    <label class="form-check-label" for="devices_{{ device }}">{{ device.replace('_', ' ').capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Question 6 -->
+                            <div class="mb-3">
+                                <label class="form-label">6. Do you prefer certain colors?</label>
+                                {% set saved_colors = preferences.preferred_colors if preferences and preferences.preferred_colors else '' %}
+                                {% for color in ['neutral', 'bright', 'pastel', 'mood'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="colors_{{ color }}" name="preferred_colors" value="{{ color }}" {% if color == saved_colors %}checked{% endif %}>
+                                    <label class="form-check-label" for="colors_{{ color }}">{{ color.capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Question 7 -->
+                            <div class="mb-3">
+                                <label class="form-label">7. How important is eco-friendliness to you?</label>
+                                {% set saved_eco = preferences.eco_preference if preferences and preferences.eco_preference else '' %}
+                                {% for eco in ['very', 'sometimes', 'no'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="eco_{{ eco }}" name="eco_preference" value="{{ eco }}" {% if eco == saved_eco %}checked{% endif %}>
+                                    <label class="form-check-label" for="eco_{{ eco }}">{{ eco.capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Question 8 -->
+                            <div class="mb-3">
+                                <label class="form-label">8. What type of footwear do you buy most often?</label>
+                                {% set saved_footwear = preferences.preferred_footwear.split(',') if preferences and preferences.preferred_footwear else [] %}
+                                {% for footwear in ['sport', 'casual', 'classic', 'home'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="footwear_{{ footwear }}" name="preferred_footwear[]" value="{{ footwear }}" {% if footwear in saved_footwear %}checked{% endif %}>
+                                    <label class="form-check-label" for="footwear_{{ footwear }}">{{ footwear.capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Question 9 -->
+                            <div class="mb-3">
+                                <label class="form-label">9. What kind of cosmetics do you prefer?</label>
+                                {% set saved_cosmetics = preferences.preferred_cosmetics.split(',') if preferences and preferences.preferred_cosmetics else [] %}
+                                {% for cosmetic in ['natural', 'professional', 'mass', 'decorative'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="cosmetics_{{ cosmetic }}" name="preferred_cosmetics[]" value="{{ cosmetic }}" {% if cosmetic in saved_cosmetics %}checked{% endif %}>
+                                    <label class="form-check-label" for="cosmetics_{{ cosmetic }}">{{ cosmetic.capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+
+                            <!-- Question 10 -->
+                            <div class="mb-3">
+                                <label class="form-label">10. Are you shopping for a specific purpose?</label>
+                                {% set saved_purposes = preferences.shopping_purpose.split(',') if preferences and preferences.shopping_purpose else [] %}
+                                {% for purpose in ['gift', 'self', 'home', 'travel'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="purpose_{{ purpose }}" name="shopping_purpose[]" value="{{ purpose }}" {% if purpose in saved_purposes %}checked{% endif %}>
+                                    <label class="form-check-label" for="purpose_{{ purpose }}">{{ purpose.capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Question 11 -->
+                            <div class="mb-3">
+                                <label class="form-label">11. What is your shopping budget?</label>
+                                {% set saved_budget = preferences.shopping_budget if preferences and preferences.shopping_budget else '' %}
+                                {% for budget in ['under_50', '50_100', '100_500', 'over_500'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="budget_{{ budget }}" name="shopping_budget" value="{{ budget }}" {% if budget == saved_budget %}checked{% endif %}>
+                                    <label class="form-check-label" for="budget_{{ budget }}">{{ budget.replace('_', ' ').capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Question 12 -->
+                            <div class="mb-3">
+                                <label class="form-label">12. What home products interest you?</label>
+                                {% set saved_home_products = preferences.home_products.split(',') if preferences and preferences.home_products else [] %}
+                                {% for product in ['textiles', 'furniture', 'decor', 'smart_tech'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="home_{{ product }}" name="home_products[]" value="{{ product }}" {% if product in saved_home_products %}checked{% endif %}>
+                                    <label class="form-check-label" for="home_{{ product }}">{{ product.replace('_', ' ').capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Question 13 -->
+                            <div class="mb-3">
+                                <label class="form-label">13. Do you often buy children's products?</label>
+                                {% set saved_kids_products = preferences.kids_products if preferences and preferences.kids_products else '' %}
+                                {% for kids in ['often', 'sometimes', 'no'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="kids_{{ kids }}" name="kids_products" value="{{ kids }}" {% if kids == saved_kids_products %}checked{% endif %}>
+                                    <label class="form-check-label" for="kids_{{ kids }}">{{ kids.capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Question 14 -->
+                            <div class="mb-3">
+                                <label class="form-label">14. What type of food products do you prefer?</label>
+                                {% set saved_food_products = preferences.food_products.split(',') if preferences and preferences.food_products else [] %}
+                                {% for food in ['fresh', 'ready', 'frozen', 'organic'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="food_{{ food }}" name="food_products[]" value="{{ food }}" {% if food in saved_food_products %}checked{% endif %}>
+                                    <label class="form-check-label" for="food_{{ food }}">{{ food.capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Question 15 -->
+                            <div class="mb-3">
+                                <label class="form-label">15. How important is delivery to you?</label>
+                                {% set saved_delivery = preferences.delivery_preference if preferences and preferences.delivery_preference else '' %}
+                                {% for delivery in ['fast', 'free', 'pickup'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="delivery_{{ delivery }}" name="delivery_preference" value="{{ delivery }}" {% if delivery == saved_delivery %}checked{% endif %}>
+                                    <label class="form-check-label" for="delivery_{{ delivery }}">{{ delivery.capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+
+                            <!-- Question 16 -->
+                            <div class="mb-3">
+                                <label class="form-label">16. What payment method do you prefer?</label>
+                                {% set saved_payment_method = preferences.payment_method if preferences and preferences.payment_method else '' %}
+                                {% for payment in ['cash', 'card', 'wallet', 'credit'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="payment_{{ payment }}" name="payment_method" value="{{ payment }}" {% if payment == saved_payment_method %}checked{% endif %}>
+                                    <label class="form-check-label" for="payment_{{ payment }}">{{ payment.capitalize().replace('_', ' ') }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Question 17 -->
+                            <div class="mb-3">
+                                <label class="form-label">17. Are you interested in discounts and promotions?</label>
+                                {% set saved_discount_interest = preferences.discount_interest if preferences and preferences.discount_interest else '' %}
+                                {% for discount in ['yes', 'sometimes', 'no'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="discount_{{ discount }}" name="discount_interest" value="{{ discount }}" {% if discount == saved_discount_interest %}checked{% endif %}>
+                                    <label class="form-check-label" for="discount_{{ discount }}">{{ discount.capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Question 18 -->
+                            <div class="mb-3">
+                                <label class="form-label">18. Do you use subscription services?</label>
+                                {% set saved_subscription_use = preferences.subscription_use if preferences and preferences.subscription_use else '' %}
+                                {% for subscription in ['yes', 'rarely', 'no'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="subscription_{{ subscription }}" name="subscription_use" value="{{ subscription }}" {% if subscription == saved_subscription_use %}checked{% endif %}>
+                                    <label class="form-check-label" for="subscription_{{ subscription }}">{{ subscription.capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Question 19 -->
+                            <div class="mb-3">
+                                <label class="form-label">19. Do you prefer domestic or imported products?</label>
+                                {% set saved_product_origin = preferences.product_origin if preferences and preferences.product_origin else '' %}
+                                {% for origin in ['domestic', 'imported', 'any'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="origin_{{ origin }}" name="product_origin" value="{{ origin }}" {% if origin == saved_product_origin %}checked{% endif %}>
+                                    <label class="form-check-label" for="origin_{{ origin }}">{{ origin.capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Question 20 -->
+                            <div class="mb-3">
+                                <label class="form-label">20. How important is the brand to you?</label>
+                                {% set saved_brand_importance = preferences.brand_importance if preferences and preferences.brand_importance else '' %}
+                                {% for importance in ['very_important', 'somewhat_important', 'not_important'] %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="brand_{{ importance }}" name="brand_importance" value="{{ importance }}" {% if importance == saved_brand_importance %}checked{% endif %}>
+                                    <label class="form-check-label" for="brand_{{ importance }}">{{ importance.replace('_', ' ').capitalize() }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+
+                            <div class="d-grid gap-2">
+                        <div class="text-center mt-3">
+                            <p class="text-success">Thank you! Your preferences have been saved and will be considered in future suggestions. You can edit them at any time.</p>
+                            <button type="submit" class="btn btn-primary">Save and Go to Home</button>
+                        </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- Start Footer -->
+<footer class="bg-dark" id="tempaltemo_footer">
+    <div class="container">
+        <div class="row">
+
+            <!-- About Us -->
+            <div class="col-md-4 pt-5">
+                <h2 class="h2 text-success border-bottom pb-3 border-light logo">My Shop</h2>
+                <p class="text-light">
+                    My Shop is your ultimate platform for discovering and comparing products from top online stores. 
+                    We integrate listings from leading brands and marketplaces, offering seamless product searches, filtering, 
+                    and personalized recommendations.
+                </p>
+            </div>
+
+            <!-- Product Categories -->
+            <div class="col-md-4 pt-5">
+                <h2 class="h2 text-light border-bottom pb-3 border-light">Categories</h2>
+                <ul class="list-unstyled text-light footer-link-list">
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Electronics</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Clothing</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Shoes</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Accessories</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Smart Gadgets</a></li>
+                </ul>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-4 pt-5">
+                <h2 class="h2 text-light border-bottom pb-3 border-light">Quick Links</h2>
+                <ul class="list-unstyled text-light footer-link-list">
+                    <li><a class="text-decoration-none" href="{{ url_for('home') }}">Home</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('shop') }}">Shop</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('contact') }}">Contact</a></li>
+                    <li><a class="text-decoration-none" href="{{ url_for('preferences') }}">Preferences</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="row text-light mb-4">
+            <div class="col-12 mb-3">
+                <div class="w-100 my-3 border-top border-light"></div>
+            </div>
+
+            <!-- Social Media -->
+            <div class="col-auto me-auto">
+                <ul class="list-inline text-left footer-icons">
+                    <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="https://www.facebook.com/profile.php?id=61573924709146"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                    </li>
+                    <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/_my_shop_official"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
+                    </li>
+                    <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="https://x.com/MyShop480678"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Subscription -->
+            <form id="subscribe-form" class="d-flex">
+                <input type="email" id="subscribe-email" class="form-control bg-dark border-light text-white" placeholder="Enter your email" required>
+                <button type="submit" class="btn btn-success">Subscribe</button>
+            </form>
+            <p id="subscribe-message" class="text-white mt-2"></p>   
+        </div>
+    </div>
+</footer>
+<!-- End Footer -->
+    <script src="{{ url_for('static', filename='js/jquery-1.11.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/templatemo.js') }}"></script>
+</body>
+</html>

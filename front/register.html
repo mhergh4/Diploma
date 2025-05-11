@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register - My Shop</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.min.css') }}">
+
+    <style>
+         body {
+            background: linear-gradient(to right, #71dde0, #57aaad);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 300px; /* Отступ для иконки */
+        }
+
+
+        .shop-logo {
+            width: 120px;
+            height: 120px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .shop-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #57aaad;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .register-card {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+            border: 2px solid #71dde0;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            background: #71dde0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background 0.3s ease-in-out, transform 0.2s;
+            cursor: pointer;
+        }
+
+        .register-btn:hover {
+            background: #57aaad;
+            transform: scale(1.05);
+        }
+        .password-rules {
+            font-size: 14px;
+            color: red;
+            margin-top: 10px;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        .password-rules span {
+            display: block; 
+            margin-bottom: 5px; 
+        }
+
+        .valid {
+            color: green;
+        }
+
+    </style>
+</head>
+<body>
+
+    <img src="{{ url_for('static', filename='img/shop_117803.png')}}" alt="My Shop Logo" class="shop-logo">
+    <h1 class="shop-title">My Shop</h1>
+
+    <div class="register-card text-center">
+        <h2>Join My Shop!</h2>
+        <p class="text-muted">Create an account to start shopping.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="mb-3">
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('register') }}" method="POST">
+            <div class="mb-3">
+                <label for="username" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your full name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Create a password" required onkeyup="checkPassword()">
+                <div id="password-rules" class="password-rules">
+                    <span id="length">❌ At least 8 characters</span>
+                    <span id="uppercase">❌ At least one uppercase letter</span>
+                    <span id="lowercase">❌ At least one lowercase letter</span>
+                    <span id="number">❌ At least one number</span>
+                    <span id="special">❌ At least one special character (!@#$%^&*)</span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="confirm_password" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required onkeyup="checkPasswordMatch()">
+                <div id="password-match" class="password-rules"></div>
+            </div>
+            <label class="mt-3">
+                <input type="checkbox" id="terms" required> 
+                I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal" class="text-primary fw-bold">Terms of Service</a>
+            </label>
+            <div class="text-center">
+                <button type="submit" class="register-btn" id="register-btn" disabled>Register</button>
+            </div>
+            <!-- Terms of Service Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title fw-bold" id="termsModalLabel">Terms of Service</h5>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4" style="max-height: 500px; overflow-y: auto; font-family: 'Roboto', sans-serif; line-height: 1.6;">
+                <h2 class="fw-bold text-center text-primary mb-4">Terms of Service</h2>
+
+                <h4 class="fw-bold">1. Introduction</h4>
+                <p>Welcome to <strong>My Shop</strong>. By accessing or using our services, you agree to these Terms of Service. These terms govern your access, usage, and rights on our platform. Please read them carefully.</p>
+
+                <h4 class="fw-bold">2. Account Registration & Security</h4>
+                <p>To use certain features, you must create an account. You are responsible for maintaining the security of your account and all activities under your account credentials.</p>
+
+                <h4 class="fw-bold">3. Data Collection & Privacy</h4>
+                <p>We collect personal data such as name, email, and transaction details to provide a seamless shopping experience. By registering, you consent to our privacy policies regarding data collection, usage, and security.</p>
+
+                <h4 class="fw-bold">4. Payments & Refunds</h4>
+                <p>Payments are processed securely via third-party providers. Refund policies vary depending on the product and the seller’s policy. Please review product-specific terms before purchasing.</p>
+
+                <h4 class="fw-bold">5. User Responsibilities</h4>
+                <p>Users must not engage in fraudulent activities, abuse the platform, or violate any applicable laws. Any such violation may result in account suspension or termination.</p>
+
+                <h4 class="fw-bold">6. Intellectual Property</h4>
+                <p>All content, including text, images, logos, and trademarks, belongs to <strong>My Shop</strong> or respective partners. Unauthorized use of any materials is strictly prohibited.</p>
+
+                <h4 class="fw-bold">7. Limitation of Liability</h4>
+                <p>We strive to provide accurate and reliable services; however, we do not guarantee uninterrupted access. In no event shall My Shop be liable for any indirect damages arising from the use of our platform.</p>
+
+                <h4 class="fw-bold">8. Changes to Terms</h4>
+                <p>We reserve the right to modify these Terms of Service at any time. Continued use of the platform after changes indicates your acceptance of the updated terms.</p>
+
+                <h4 class="fw-bold">9. Contact Us</h4>
+                <p>If you have any questions or concerns regarding these terms, please contact our support team at <strong>auth.myshop.world@gmail.com</strong>.</p>
+            </div>
+            <div class="modal-footer bg-light d-flex justify-content-between">
+                <span class="text-muted small">Last updated: January 2025</span>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            
+        </form>
+
+        <div class="my-3">
+            <hr>
+            <p>Already have an account? <a href="{{ url_for('login') }}" class="text-success">Sign in</a></p>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2025 My Shop. All Rights Reserved.
+    </div>
+
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script>
+        function checkPassword() {
+            let password = document.getElementById("password").value;
+            let length = document.getElementById("length");
+            let uppercase = document.getElementById("uppercase");
+            let lowercase = document.getElementById("lowercase");
+            let number = document.getElementById("number");
+            let special = document.getElementById("special");
+
+            let hasLength = password.length >= 8;
+            let hasUpper = /[A-Z]/.test(password);
+            let hasLower = /[a-z]/.test(password);
+            let hasNumber = /\d/.test(password);
+            let hasSpecial = /[!@#$%^&*]/.test(password);
+
+            length.innerHTML = hasLength ? "✅ At least 8 characters" : "❌ At least 8 characters";
+            length.className = hasLength ? "valid" : "";
+
+            uppercase.innerHTML = hasUpper ? "✅ At least one uppercase letter" : "❌ At least one uppercase letter";
+            uppercase.className = hasUpper ? "valid" : "";
+
+            lowercase.innerHTML = hasLower ? "✅ At least one lowercase letter" : "❌ At least one lowercase letter";
+            lowercase.className = hasLower ? "valid" : "";
+
+            number.innerHTML = hasNumber ? "✅ At least one number" : "❌ At least one number";
+            number.className = hasNumber ? "valid" : "";
+
+            special.innerHTML = hasSpecial ? "✅ At least one special character (!@#$%^&*)" : "❌ At least one special character (!@#$%^&*)";
+            special.className = hasSpecial ? "valid" : "";
+
+            validateForm();
+        }
+
+        function checkPasswordMatch() {
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirm_password").value;
+            let matchText = document.getElementById("password-match");
+
+            if (password === confirmPassword && password !== "") {
+                matchText.innerHTML = "✅ Passwords match";
+                matchText.className = "password-rules valid";
+            } else {
+                matchText.innerHTML = "❌ Passwords do not match";
+                matchText.className = "password-rules";
+            }
+
+            validateForm();
+        }
+
+        function validateForm() {
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirm_password").value;
+            let registerBtn = document.getElementById("register-btn");
+
+            let isValid = password.length >= 8 &&
+                          /[A-Z]/.test(password) &&
+                          /[a-z]/.test(password) &&
+                          /\d/.test(password) &&
+                          /[!@#$%^&*]/.test(password) &&
+                          password === confirmPassword;
+
+            registerBtn.disabled = !isValid;
+            return isValid;
+        }
+    </script>
+</body>
+</html>
